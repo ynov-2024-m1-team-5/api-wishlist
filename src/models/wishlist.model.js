@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../database");
 
-const Wishlist = sequelize.define("wishlist",{
+const Wishlist = sequelize.define("wishlists",{
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -9,7 +9,8 @@ const Wishlist = sequelize.define("wishlist",{
     },
     product_ids: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull: false
+        allowNull: false,
+        defaultValue: []
     },
     customer_id: {
         type: DataTypes.INTEGER,
