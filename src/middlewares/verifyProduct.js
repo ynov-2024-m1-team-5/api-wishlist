@@ -5,7 +5,6 @@ const verifyProduct = async (req, res, next) => {
     Product.findByPk(product_id)
     .then(() => next())
     .catch((err) => res.status(404).json({ success: false, message: err.message }));
-
 }
 
 module.exports = verifyProduct;

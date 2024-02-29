@@ -1,4 +1,4 @@
-name: api-product CI
+name: api-wishlist CI
 
 on:
   pull_request: 
@@ -9,13 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy: 
       matrix: 
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
     steps: 
     - uses: actions/checkout@v3
-    - name: Use api-product ${{ matrix.node-version }}
+    - name: Use api-wishlist ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm test
