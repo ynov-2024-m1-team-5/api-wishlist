@@ -1,9 +1,7 @@
-const jwtDecode = require("jwt-decode");
 
 const verifyUser = (req, res, next) => {
-    const { customerId } = req.params;
-    const token = jwtDecode(req.headers.authorization);
-    if (customerId !== token.customerId) {
+    const { customer_id } = req.params;
+    if (customer_id !== req.userToken.sub) {
         return res.status(403).json({ success:false, message: "Unauthorized" });
     }
     next();
