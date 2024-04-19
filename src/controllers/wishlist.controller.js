@@ -39,9 +39,14 @@ exports.removeProductFromWishlist = async (req, res) => {
         const wishlist = await Wishlist.findOne({ where: { customer_id } });
         if (wishlist) {
             let productIds = wishlist.product_ids;
-            productIds = productIds.filter(id => id !== product_id);
-            await Wishlist.update({ product_ids: productIds}, { where: { customer_id } });
-            return res.status(200).json({ success:true });
+            // verify that product_id is in the wishlist
+            if (!productIds.includes(parseInt(product_id))) {
+                return res.status(404).json({ success:false, message: "Product not found in wishlist"});
+            }
+            productIds = productIds.filter(id => id != product_id);
+            await wishlist.update({ product_ids: productIds}, { where: { customer_id } });
+            wishlist.save()
+            return res.status(200).json({ success:true, data:wishlist });
         }
         throw new Error("Wishlist not found");
         
